@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Streamlare
 // @description  Watch videos in external player.
-// @version      1.0.0
+// @version      1.0.1
 // @match        *://streamlare.com/*
 // @match        *://*.streamlare.com/*
 // @icon         https://streamlare.com/favicon.ico
@@ -253,7 +253,7 @@ var process_video_page = function() {
   var video_id, xhr_url, xhr_data, callback
 
   regex = {
-    pathname: new RegExp('/e/([^/]+)(?:/.*)?$')
+    pathname: new RegExp('/e/([^/\?#]+)(?:[/\?#].*)?$')
   }
 
   if (!regex.pathname.test(unsafeWindow.location.pathname))
