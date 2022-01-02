@@ -1,0 +1,28 @@
+--------------------------------------------------------------------------------
+
+https://www.2embed.ru/embed/imdb/movie?id=tt10872600
+
+--------------------------------------------------------------------------------
+// https://streamlare.com/e/b8K02DPmV03zygB1
+
+network request:
+================
+curl 'https://streamlare.com/api/video/get' \
+  -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json' \
+  -X POST  --data-binary '{"id":"b8K02DPmV03zygB1"}' \
+  --insecure --compressed
+
+network response:
+=================
+{
+  "status": "success",
+  "message": "OK",
+  "result": {
+    "Original": {
+      "label": "Original",
+      "src": "https:\/\/g9kxgs6yqnpgnm0rfb2s.larecontent.com\/HXXa4i50EYlcfkD_SwgBDQ\/1641152763\/tS5BO3NhpJkfnLeab3BxjBkuuDEet0DrDXttHkISoSr7dOa0oyvUD92XTkgeR2G2XMqFY8W3CPDnGKw6087a0Lm39eBAvHA9Q0zsg5vs1rPt3olqmiNoHgCloETj8_HyZesdfLkXdJaC7mzBfARL1rC8P9CeXgHsxzohe15xoVdjRoGm32hgTllo0Xvcgtru\/7178131.mp4"
+    }
+  }
+}
+
+--------------------------------------------------------------------------------
