@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="always">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="utWewLlbPSIIlIFhqAkpoWFoVcQuWxEMRHDHT7oc">
+
+    <!-- Scripts -->
+    <script src="/js/jwplayer.js" x-src="https://ssl.p.jwpcdn.com/player/v/8.24.1/jwplayer.js"> </script>
+    <script type="text/javascript">
+        jwplayer.key = "W7zSm81+mmIsg7F+fyHRKhF3ggLkTqtGMhvI92kbqf/ysE99";
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <main>
+            <file-embed :file="{&quot;hashid&quot;:&quot;b8K02DPmV03zygB1&quot;,&quot;name&quot;:&quot;7178131.mp4&quot;,&quot;poster&quot;:&quot;qnd9z73mn7mrp0kml64g.jpg&quot;,&quot;status&quot;:&quot;converted&quot;}" :subtitles="[]" :preview="&quot;https:\/\/cdn.streamlare.com\/gqwdljm17yrpj9xvp7.vtt&quot;" :config="{&quot;player&quot;:{&quot;name&quot;:1,&quot;subtitle&quot;:1,&quot;color&quot;:&quot;#5781FB&quot;,&quot;embed_width&quot;:&quot;800&quot;,&quot;embed_height&quot;:&quot;600&quot;,&quot;logo&quot;:&quot;https:\/\/streamlare.com\/images\/player_logo.png&quot;},&quot;subtitle&quot;:{&quot;text&quot;:{&quot;color&quot;:&quot;#ffffff&quot;,&quot;opacity&quot;:100},&quot;background&quot;:{&quot;color&quot;:&quot;#000000&quot;,&quot;opacity&quot;:0},&quot;window&quot;:{&quot;color&quot;:&quot;#000000&quot;,&quot;opacity&quot;:0},&quot;font_size&quot;:15,&quot;text_edge_style&quot;:&quot;depressed&quot;,&quot;font_family&quot;:&quot;Trebuchet MS&quot;},&quot;access&quot;:{&quot;allow_download&quot;:1,&quot;allow_embed_only&quot;:0,&quot;allow_domain&quot;:null},&quot;convert&quot;:{&quot;poster&quot;:1,&quot;poster_size&quot;:3,&quot;subtitle&quot;:1,&quot;preview&quot;:1},&quot;affiliate&quot;:{&quot;ad_level&quot;:3,&quot;ad_type&quot;:2,&quot;ad_blocker&quot;:0},&quot;premium&quot;:0,&quot;uid&quot;:0,&quot;is_premium&quot;:false,&quot;is_owner&quot;:false}"></file-embed>
+        </main>
+    </div>
+
+    <script src="/js/manifest.js"></script>
+    <script src="/js/vendor.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>

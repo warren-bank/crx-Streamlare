@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Streamlare
 // @description  Watch videos in external player.
-// @version      1.0.1
+// @version      1.0.2
 // @match        *://streamlare.com/*
 // @match        *://*.streamlare.com/*
 // @icon         https://streamlare.com/favicon.ico
@@ -30,6 +30,12 @@ var user_options = {
     "force_http":                   true,
     "force_https":                  false
   }
+}
+
+// ----------------------------------------------------------------------------- global state
+
+var state = {
+  "csrf_token": null
 }
 
 // ----------------------------------------------------------------------------- helpers (xhr)
@@ -234,7 +240,90 @@ var process_mp4_url = function(mp4_url, vtt_url, referer_url) {
   process_video_url(/* video_url= */ mp4_url, /* video_type= */ 'video/mp4', vtt_url, referer_url)
 }
 
+// ----------------------------------------------------------------------------- extract data from dom
+
+var extract_csrf_token = function() {
+  var element = unsafeWindow.document.querySelector('meta[name="csrf-token"][content]')
+
+  if (element)
+    state.csrf_token = element.getAttribute('content')
+}
+
+var initialize_state = function() {
+  extract_csrf_token()
+}
+
 // ----------------------------------------------------------------------------- process page
+
+var process_video_page = function() {
+  var video_id, xhr_url, xhr_headers, xhr_data, callback
+
+  regex = {
+    pathname: new RegExp('/e/([^/\?#]+)(?:[/\?#].*)?$')
+  }
+
+  if (!regex.pathname.test(unsafeWindow.location.pathname))
+    return
+
+  video_id    = unsafeWindow.location.pathname.replace(regex.pathname, '$1')
+  xhr_url     = 'https://streamlare.com/api/video/get'
+  xhr_headers = {
+    "content-type": "application/json",
+    "accept":       "application/json"
+  }
+  if (state.csrf_token)
+    xhr_headers["X-CSRF-TOKEN"] = state.csrf_token
+  xhr_data = {id: video_id}
+  callback = function(data) {
+    var mp4_url
+
+    if (data && (data instanceof Object) && (data.status === 'success') && (data.result instanceof Object) && (data.result.Original instanceof Object) && data.result.Original.src) {
+      mp4_url  = data.result.Original.src
+      mp4_url  = process_video_src(mp4_url)
+      mp4_url += '#video.mp4'
+
+      process_mp4_url(mp4_url)
+    }
+  }
+
+  download_json(xhr_url, xhr_headers, xhr_data, callback)
+}
+
+var process_video_src = function(original_src) {
+  var is_encoded = (original_src.toLowerCase().indexOf('.mp4') === -1)
+
+  return is_encoded
+    ? process_encoded_video_src(original_src)
+    : process_nonencoded_video_src(original_src)
+}
+
+var process_encoded_video_src = function(original_src) {
+  var video_url = []
+
+  // get base64 decoded value
+  original_src = atob(original_src)
+
+  var decode_char = function(index) {
+    var old_charcode, new_charcode, new_char
+
+    old_charcode = original_src.charCodeAt(index)
+    new_charcode = 0x33 ^ old_charcode
+    new_char     = String.fromCharCode(new_charcode)
+
+    return new_char
+  }
+
+  for (var i=0; i < original_src.length; i++) {
+    video_url.push(decode_char(i))
+  }
+
+  video_url = video_url.join('')
+  return video_url
+}
+
+var process_nonencoded_video_src = function(original_src) {
+  return resolve_url(original_src)
+}
 
 var resolve_url = function(url) {
   if (url.substring(0, 4).toLowerCase() === 'http')
@@ -247,34 +336,6 @@ var resolve_url = function(url) {
     return unsafeWindow.location.protocol + '//' + unsafeWindow.location.host + url
 
   return unsafeWindow.location.protocol + '//' + unsafeWindow.location.host + unsafeWindow.location.pathname.replace(/[^\/]+$/, '') + url
-}
-
-var process_video_page = function() {
-  var video_id, xhr_url, xhr_data, callback
-
-  regex = {
-    pathname: new RegExp('/e/([^/\?#]+)(?:[/\?#].*)?$')
-  }
-
-  if (!regex.pathname.test(unsafeWindow.location.pathname))
-    return
-
-  video_id = unsafeWindow.location.pathname.replace(regex.pathname, '$1')
-  xhr_url  = 'https://streamlare.com/api/video/get'
-  xhr_data = {id: video_id}
-  callback = function(data) {
-    var mp4_url
-
-    if (data && (data instanceof Object) && (data.status === 'success') && (data.result instanceof Object) && (data.result.Original instanceof Object) && data.result.Original.src) {
-      mp4_url  = data.result.Original.src
-      mp4_url  = resolve_url(mp4_url)
-      mp4_url += '#video.mp4'
-
-      process_mp4_url(mp4_url)
-    }
-  }
-
-  download_json(xhr_url, /* headers= */ null, xhr_data, callback)
 }
 
 // ----------------------------------------------------------------------------- bootstrap
@@ -292,6 +353,7 @@ var should_init = function() {
 }
 
 var init = function() {
+  initialize_state()
   process_video_page()
 }
 

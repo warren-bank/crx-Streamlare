@@ -1,0 +1,154 @@
+--------------------------------------------------------------------------------
+
+https://www.2embed.ru/embed/imdb/movie?id=tt10872600
+
+--------------------------------------------------------------------------------
+// https://streamlare.com/e/b8K02DPmV03zygB1
+
+network request for video file:
+===============================
+https://www-0r.ssl0d.com/aHR0cHM6Ly93d3ctdGxqOTY1OS5zc2wwZC5jb20vUWxWR1lLaEV6M19SOUhBZ25mSllKdy8xNjQ0MjI5NzExL0NOTTJ0azA3WVJaZ3BVQXJERXBoTjlTZkVwNnhwNm5pUHdxM2R0RnBSdnpidjRtR0ZJU0h2N3M2ODFtSUZRSkVYYTNObUtaRHprTFEtQTdVa1dyNUxxRHlOeDZsU0VUZElQOUdpNm9NaHpBL056RTNPREV6TVM1dGNEUQ
+
+TBD:
+====
+* how do we get from the value of `result.Original.src` in the API JSON response to this URL?
+  - example:
+      "W0dHQ0AJHBxEREQeA0EdQEBfA1cdUFxeHFJ7YQNQe34Ff0oKAFcAUEdXdEtCfGdqAnxgBklQAUREaXAGWVEBA0VXdApDZnZfR2BkR2lQZ3FiUmUKamIDdkppX1t7YmALS31ZYgN+WX5LfVl+B38DfXxnZ3kDUklyAGRleVJpAHFlYmt5dmFrcVxnWV9naVhlRH1dW0R9XgZDZntXS34BYQNhXXFgV11DWldZYUdhA2l5ZgNbAX0AfgF8d3VHYGZpYWBYZWpqZ318UWZHUmF7Q0FndXZHYmdXZVICV0p9ZktLYXtffFZ3aUBmA2VmaXZfYnxmV0N9Xgp9UntDcX8DBgVhZ31jYXZlBWdlfgJXdH12ZmI="
+
+--------------------------------------------------------------------------------
+
+non-relevant observation:
+=========================
+
+console.log(
+  atob('aHR0cHM6Ly93d3ctdGxqOTY1OS5zc2wwZC5jb20vUWxWR1lLaEV6M19SOUhBZ25mSllKdy8xNjQ0MjI5NzExL0NOTTJ0azA3WVJaZ3BVQXJERXBoTjlTZkVwNnhwNm5pUHdxM2R0RnBSdnpidjRtR0ZJU0h2N3M2ODFtSUZRSkVYYTNObUtaRHprTFEtQTdVa1dyNUxxRHlOeDZsU0VUZElQOUdpNm9NaHpBL056RTNPREV6TVM1dGNEUQ')
+)
+// https://www-tlj9659.ssl0d.com/QlVGYKhEz3_R9HAgnfJYJw/1644229711/CNM2tk07YRZgpUArDEphN9SfEp6xp6niPwq3dtFpRvzbv4mGFISHv7s681mIFQJEXa3NmKZDzkLQ-A7UkWr5LqDyNx6lSETdIP9Gi6oMhzA/NzE3ODEzMS5tcDQ
+
+--------------------------------------------------------------------------------
+
+"demo" directory:
+=================
+* contains a barebones copy of the html page, with its required javascript files
+* whitespace was added to the minified javascript file: "ja/app.js"
+  - to more easily inspect code in the debugger
+  - a "console.log()" statement and breakpoint were added to the function that produces the video URL (at line: 7530)
+
+notes:
+======
+* web server used to test this demo:
+  - my fork of "serve"
+    * repo:    https://github.com/warren-bank/node-serve
+    * version: 130002.10.1
+    * url:     http://localhost/b8K02DPmV03zygB1/
+
+----------------------------------------
+
+relevant code (encoded):
+========================
+
+String[_0x1b5197(0x466)][_0x1b5197(0xbed)] = function() {
+  var _0x277f30 = _0x1b5197;
+  var _0x24d5b8 = atob(this[_0x277f30(0x92a)]());
+  var _0x5139cc = '';
+
+  for (i = 0x0; _0x4caa80[_0x277f30(0x93e)](i, _0x24d5b8[_0x277f30(0x803)]); i++) {
+    var _0x1eb3c3 = _0x4caa80[_0x277f30(0x583)](0x33, _0x24d5b8[_0x277f30(0x434)](i));
+    _0x5139cc += String[_0x277f30(0x252)](_0x1eb3c3);
+  }
+
+// ==========
+// video URL:
+// ==========
+console.log(_0x5139cc);
+debugger;
+// ==========
+
+  return _0x5139cc;
+};
+
+
+----------------------------------------
+
+relevant code (decoded):
+========================
+
+String["prototype"]["_0xdec0d3"] = function() {
+  var _0x277f30 = _0x1b5197;
+  var _0x24d5b8 = atob(this["valueOf"]());
+  var _0x5139cc = '';
+
+  for (i = 0x0; _0x4caa80["XkPxj"](i, _0x24d5b8["length"]); i++) {
+    var _0x1eb3c3 = _0x4caa80["pWltG"](0x33, _0x24d5b8["charCodeAt"](i));
+    _0x5139cc += String["fromCharCode"](_0x1eb3c3);
+  }
+
+// ==========
+// video URL:
+// ==========
+console.log(_0x5139cc);
+debugger;
+// ==========
+
+  return _0x5139cc;
+};
+
+notes:
+======
+* this["valueOf"]()       === "W0dHQ0AJHBxEREQeA0EdQEBfA1cdUFxeHFJ7YQNQe34Ff0oKAFcAUEdXdEtCfGdqAnxgBklQAUREaXAGWVEBA0VXdApDZnZfR2BkR2lQZ3FiUmUKamIDdkppX1t7YmALS31ZYgN+WX5LfVl+B38DfXxnZ3kDUklyAGRleVJpAHFlYmt5dmFrcVxnWV9naVhlRH1dW0R9XgZDZntXS34BYQNhXXFgV11DWldZYUdhA2l5ZgNbAX0AfgF8d3VHYGZpYWBYZWpqZ318UWZHUmF7Q0FndXZHYmdXZVICV0p9ZktLYXtffFZ3aUBmA2VmaXZfYnxmV0N9Xgp9UntDcX8DBgVhZ31jYXZlBWdlfgJXdH12ZmI="
+  atob(this["valueOf"]()) === // gibberish
+
+* _0x4caa80["XkPxj"].toString() === `
+    function(_0x57f9f3, _0x10ca7b) {
+      return _0x57f9f3 < _0x10ca7b;
+    }
+  `
+
+* _0x4caa80["pWltG"].toString() === `
+    function(_0x43270c, _0x401c52) {
+      return _0x43270c ^ _0x401c52;
+    }
+  `
+
+----------------------------------------
+
+relevant code (rewritten):
+==========================
+
+const decode_original_src = function(original_src) {
+  let video_url = []
+
+  // get base64 decoded value
+  original_src = atob(original_src)
+
+  const decode_char = function(index) {
+    let old_charcode, new_charcode, new_char
+
+    old_charcode = original_src.charCodeAt(index)
+    new_charcode = 0x33 ^ old_charcode
+    new_char     = String.fromCharCode(new_charcode)
+
+    return new_char
+  }
+
+  for (let i=0; i < original_src.length; i++) {
+    video_url.push(decode_char(i))
+  }
+
+  video_url = video_url.join('')
+  return video_url
+}
+
+javascript console:
+===================
+console.log(
+  decode_original_src(
+    "W0dHQ0AJHBxEREQeA0EdQEBfA1cdUFxeHFJ7YQNQe34Ff0oKAFcAUEdXdEtCfGdqAnxgBklQAUREaXAGWVEBA0VXdApDZnZfR2BkR2lQZ3FiUmUKamIDdkppX1t7YmALS31ZYgN+WX5LfVl+B38DfXxnZ3kDUklyAGRleVJpAHFlYmt5dmFrcVxnWV9naVhlRH1dW0R9XgZDZntXS34BYQNhXXFgV11DWldZYUdhA2l5ZgNbAX0AfgF8d3VHYGZpYWBYZWpqZ318UWZHUmF7Q0FndXZHYmdXZVICV0p9ZktLYXtffFZ3aUBmA2VmaXZfYnxmV0N9Xgp9UntDcX8DBgVhZ31jYXZlBWdlfgJXdH12ZmI="
+  )
+)
+
+console output:
+===============
+https://www-0r.ssl0d.com/aHR0cHM6Ly93d3ctdGxqOTY1OS5zc2wwZC5jb20vdG9pUEltSWtZcTBQaV9YQ0EyZlhHQS8xNjQ0MjMxNjM4L0NOTTJ0azA3WVJaZ3BVQXJERXBoTjlTZkVwNnhwNm5pUHdxM2R0RnBSdnpidjRtR0ZJU0h2N3M2ODFtSUZRSkVYYTNObUtaRHprTFEtQTdVa1dyNUxxRHlOeDZsU0VUZElQOUdpNm9NaHpBL056RTNPREV6TVM1dGNEUQ
+
+--------------------------------------------------------------------------------

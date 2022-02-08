@@ -1,0 +1,199 @@
+--------------------------------------------------------------------------------
+
+https://www.2embed.ru/embed/imdb/movie?id=tt10872600
+
+--------------------------------------------------------------------------------
+// https://streamlare.com/e/b8K02DPmV03zygB1
+
+network request:
+================
+curl 'https://streamlare.com/api/video/get' \
+  -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json' \
+  -X POST  --data-binary '{"id":"b8K02DPmV03zygB1"}' \
+  --insecure --compressed
+
+network response:
+=================
+{"status":"error","message":"Mismatch token"}
+
+--------------------------------------------------------------------------------
+// view-source:https://streamlare.com/e/b8K02DPmV03zygB1
+
+html content:
+=============
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="utWewLlbPSIIlIFhqAkpoWFoVcQuWxEMRHDHT7oc">
+
+-------------------------------------------------------------------------------- successful attempts (fetch):
+// https://streamlare.com/e/b8K02DPmV03zygB1
+
+console output:
+===============
+{
+  "status": "success",
+  "message": "OK",
+  "result": {
+    "Original": {
+      "label": "Original",
+      "src": "W0dHQ0AJHBxEREQeA0EdQEBfA1cdUFxeHFJ7YQNQe34Ff0oKAFcAUEdXdEtCfGdqAnxgBklQAUREaXAGWVEBA0VXdApDZnZfR2BkR2lQZ3FiUmUKamIDdkppX1t7YmALS31ZYgN+WX5LfVl+B38DfXxnZ3kDUklyAGRleVJpAHFlYmt5dmFrcVxnWV9naVhlRH1dW0R9XgZDZntXS34BYQNhXXFgV11DWldZYUdhA2l5ZgNbAX0AfgF8d3VHYGZpYWBYZWpqZ318UWZHUmF7Q0FndXZHYmdXZVICV0p9ZktLYXtffFZ3aUBmA2VmaXZfYnxmV0N9Xgp9UntDcX8DBgVhZ31jYXZlBWdlfgJXdH12ZmI="
+    }
+  },
+  "session": "utWewLlbPSIIlIFhqAkpoWFoVcQuWxEMRHDHT7oc"
+}
+
+----------------------------------------
+
+javascript console (pass #1):
+=============================
+{
+  const get_csrf_token = () => {
+    const element = document.querySelector('meta[name="csrf-token"][content]')
+
+    return element ? element.getAttribute('content') : null
+  }
+
+  const get_xsrf_token = () => {
+    const cookie_name = 'XSRF-TOKEN='
+    let cookie
+
+    if (document.cookie)
+      cookie = document.cookie.split('&').filter(cookie => cookie.indexOf(cookie_name) === 0)
+
+    if (cookie && cookie.length)
+      cookie = cookie[0]
+
+    if (cookie && cookie.length)
+      cookie = decodeURIComponent(cookie.substring(cookie_name.length, cookie.length))
+
+    return cookie ? cookie : null
+  }
+
+  const csrf_token = get_csrf_token()
+  const xsrf_token = get_xsrf_token()
+
+  const headers = {}
+  if (csrf_token) headers["X-CSRF-TOKEN"] = csrf_token
+  if (xsrf_token) headers["X-XSRF-TOKEN"] = xsrf_token
+  if (document.cookie) headers["cookie"]  = document.cookie
+
+  fetch('https://streamlare.com/api/video/get', {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    cache:  'no-cache',
+    headers: {
+      "content-type": "application/json",
+      "accept":       "application/json",
+
+      ...headers
+    },
+    body: JSON.stringify({
+      id: 'b8K02DPmV03zygB1'
+    })
+  })
+  .then(response => response.text())
+  .then(console.log)
+}
+
+----------------------------------------
+
+javascript console (pass #2):
+=============================
+{
+  const csrf_token = document.querySelector('meta[name="csrf-token"][content]').getAttribute('content')
+
+  fetch('https://streamlare.com/api/video/get', {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    cache:  'no-cache',
+    headers: {
+      "content-type": "application/json",
+      "accept":       "application/json",
+      "X-CSRF-TOKEN": csrf_token
+    },
+    body: JSON.stringify({
+      id: 'b8K02DPmV03zygB1'
+    })
+  })
+  .then(response => response.text())
+  .then(console.log)
+}
+
+conclusions:
+============
+* "X-XSRF-TOKEN" header is not required
+*   "XSRF-TOKEN" cookie is not required
+
+-------------------------------------------------------------------------------- unsuccessful attempts (fetch):
+// https://streamlare.com/e/b8K02DPmV03zygB1
+
+console output:
+===============
+{"status":"error","message":"Mismatch token"}
+
+----------------------------------------
+
+javascript console (fail #1):
+=============================
+{
+  const csrf_token = document.querySelector('meta[name="csrf-token"][content]').getAttribute('content')
+
+  fetch('https://streamlare.com/api/video/get', {
+    method: 'POST',
+    cache:  'no-cache',
+    headers: {
+      "content-type": "application/json",
+      "accept":       "application/json",
+      "X-CSRF-TOKEN": csrf_token
+    },
+    body: JSON.stringify({
+      id: 'b8K02DPmV03zygB1'
+    })
+  })
+  .then(response => response.text())
+  .then(console.log)
+}
+
+conclusions:
+============
+* "mode" and "credentials" are required options to fetch
+
+----------------------------------------
+
+javascript console (fail #2):
+=============================
+{
+  fetch('https://streamlare.com/api/video/get', {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    cache:  'no-cache',
+    headers: {
+      "content-type": "application/json",
+      "accept":       "application/json"
+    },
+    body: JSON.stringify({
+      id: 'b8K02DPmV03zygB1'
+    })
+  })
+  .then(response => response.text())
+  .then(console.log)
+}
+
+conclusions:
+============
+* "X-CSRF-TOKEN" header is required
+
+-------------------------------------------------------------------------------- successful attempts (curl):
+
+tl;dr
+=====
+
+curl 'https://streamlare.com/api/video/get' \
+  -H 'X-CSRF-TOKEN: utWewLlbPSIIlIFhqAkpoWFoVcQuWxEMRHDHT7oc' \
+  -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json' \
+  -X POST  --data-binary '{"id":"b8K02DPmV03zygB1"}' \
+  --insecure --compressed
+
+--------------------------------------------------------------------------------
