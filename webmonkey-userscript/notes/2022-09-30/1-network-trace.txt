@@ -1,0 +1,58 @@
+--------------------------------------------------------------------------------
+
+https://www.2embed.to/embed/imdb/tv?id=tt0928414&s=1&e=1
+
+https://streamlare.com/e/7AkQpz9AEQjzRdN6
+  302 Redirect
+
+https://sltube.org/e/7AkQpz9AEQjzRdN6
+
+-------------------------------------------------------------------------------- successful API response:
+
+{
+    "status": "success",
+    "message": "OK",
+    "type": "mp4",
+    "token": "3b00cf51d56c40fd90516611d76839e7",
+    "result": {
+        "Original": {
+            "label": "Original",
+            "file": "https:\/\/larecontent.com\/video?token=SBFGQV8RCRFbR0dDQAlvHG8cREREHksDXAIHBAYGHUBAXwNXHVBcXm8cQV9DHmJlakdhVVBhWGZ6Q3xbcEVDVG8cAgUFBwYKBAAKBm8cBAYdAgUAbxx6BnZrZFhpXllmSn5JaXQeR0l1e11DQ0dsBWNrdF1KfHJlWgBHV1BHUmEAC1dEW2p4BwpSV0peAkRGBnVHeGsGZV15cX10dUZBAXJha2JBAnReBlhRfAJxXwZRRQFheUBxZmdDYgB3bGVgalJpZV1hXUdfcGNLWGx1dgdnQEpLAFVDAXRWX1RgAkJGdUZ_bGV5RXR_XEBhQ19KcH1CHlBWaVx6fWNLeWlcVmdiClVGf11icQZWSwtsfHcARlx0AR4KQQVfX19Af0dfCntdegZVfV53ZUR9RkFqcFdJUHhgWloDe2ZZelBUcmBUXEcHVAJnQXhVXlEEUHdWVFhXRX5ldFt-A1hcY1FSanJGBGl0f2VjS0V4cm8cBQQBAQEEBh1eQwcMQEdBVlJeDgIRHxFaQxEJEQQGHQIFABFO",
+            "type": "video\/mp4"
+        }
+    }
+}
+
+-------------------------------------------------------------------------------- successful API requests (JS fetch):
+// https://sltube.org/e/7AkQpz9AEQjzRdN6
+
+{
+  const csrf_token = document.querySelector('meta[name="csrf-token"][content]').getAttribute('content')
+
+  fetch('https://sltube.org/api/video/stream/get', {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    cache:  'no-cache',
+    headers: {
+      "content-type": "application/json",
+      "accept":       "application/json",
+      "X-CSRF-TOKEN": csrf_token
+    },
+    body: JSON.stringify({
+      id: '7AkQpz9AEQjzRdN6'
+    })
+  })
+  .then(response => response.text())
+  .then(console.log)
+}
+
+-------------------------------------------------------------------------------- successful API requests (bash):
+
+curl 'https://sltube.org/api/video/stream/get' \
+  -H 'X-CSRF-TOKEN: FoWwi5yKNO83fNAupyKdj7mraOcs1bH1rgUS0I5e' \
+  -H 'content-type: application/json;charset=UTF-8' -H 'accept: application/json' \
+  -X POST  --data-binary '{"id":"7AkQpz9AEQjzRdN6"}' \
+  --insecure --compressed
+
+--------------------------------------------------------------------------------

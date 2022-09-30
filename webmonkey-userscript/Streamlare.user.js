@@ -1,9 +1,8 @@
 // ==UserScript==
 // @name         Streamlare
 // @description  Watch videos in external player.
-// @version      1.0.2
-// @match        *://streamlare.com/*
-// @match        *://*.streamlare.com/*
+// @version      1.0.3
+// @include      /^https?:\/\/(?:[^\.\/]*\.)*(?:streamlare\.com|sltube\.org)\/.*$/
 // @icon         https://streamlare.com/favicon.ico
 // @run-at       document-end
 // @grant        unsafeWindow
@@ -266,7 +265,7 @@ var process_video_page = function() {
     return
 
   video_id    = unsafeWindow.location.pathname.replace(regex.pathname, '$1')
-  xhr_url     = 'https://streamlare.com/api/video/get'
+  xhr_url     = 'https://sltube.org/api/video/stream/get'
   xhr_headers = {
     "content-type": "application/json",
     "accept":       "application/json"
@@ -277,12 +276,19 @@ var process_video_page = function() {
   callback = function(data) {
     var mp4_url
 
-    if (data && (data instanceof Object) && (data.status === 'success') && (data.result instanceof Object) && (data.result.Original instanceof Object) && data.result.Original.src) {
-      mp4_url  = data.result.Original.src
-      mp4_url  = process_video_src(mp4_url)
-      mp4_url += '#video.mp4'
+    if (data && (data instanceof Object) && (data.status === 'success') && (data.result instanceof Object) && (data.result.Original instanceof Object)) {
+      if (data.result.Original.src) {
+        mp4_url = data.result.Original.src
+        mp4_url = process_video_src(mp4_url)
+      }
+      else if (data.result.Original.file) {
+        mp4_url = data.result.Original.file
+      }
 
-      process_mp4_url(mp4_url)
+      if (mp4_url) {
+        mp4_url += '#video.mp4'
+        process_mp4_url(mp4_url)
+      }
     }
   }
 
